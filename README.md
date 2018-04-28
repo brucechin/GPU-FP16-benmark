@@ -6,11 +6,11 @@ We use half-precision to speed up deep learning for it doesn't need much preicis
 
 For more info on Tensor Core and Volta Arch:
 
-[Volta Architecture]{http://images.nvidia.com/content/volta-architecture/pdf/volta-architecture-whitepaper.pdf}
+[Volta Architecture](http://images.nvidia.com/content/volta-architecture/pdf/volta-architecture-whitepaper.pdf)
 
-[Programming in Tensor Core]{https://devblogs.nvidia.com/programming-tensor-cores-cuda-9/}
+[Programming in Tensor Core](https://devblogs.nvidia.com/programming-tensor-cores-cuda-9/)
 
-[NVIDIA Tensor Core Programmability,Performance & Precision]{https://arxiv.org/pdf/1803.04014.pdf}
+[NVIDIA Tensor Core Programmability,Performance & Precision](https://arxiv.org/pdf/1803.04014.pdf)
 
 
 
