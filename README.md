@@ -14,7 +14,7 @@ For more info on Tensor Core and Volta Arch:
 
 [NVIDIA Tensor Core Programmability,Performance & Precision](https://arxiv.org/pdf/1803.04014.pdf)
 
-[why cublasHgemm is slower more than cublasSgemm when I use?](https://devtalk.nvidia.com/default/topic/972337/gpu-accelerated-libraries/why-cublashgemm-is-slower-more-than-cublassgemm-when-i-use-/)
+[why half-precision is slower more than single-precision when I use on GTX1070?](https://devtalk.nvidia.com/default/topic/972337/gpu-accelerated-libraries/why-cublashgemm-is-slower-more-than-cublassgemm-when-i-use-/)
 
 #Usage
 
