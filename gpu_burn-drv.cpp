@@ -27,7 +27,7 @@
  * either expressed or implied, of the FreeBSD Project.
  */
 
-#define SIZE 1024ul // Matrices are SIZE*SIZE..  2048^2 should be efficiently implemented in CUBLAS
+#define SIZE 2048ul // Matrices are SIZE*SIZE..  2048^2 should be efficiently implemented in CUBLAS
 #define USEMEM 0.9 // Try to allocate 90% of memory
 
 // Used to report op/s, measured through Visual Profiler, CUBLAS from CUDA 7.5
@@ -397,8 +397,8 @@ void listenClients(std::vector<int> clientFd, std::vector<pid_t> clientPid, int 
 					struct timespec clientPrevTime = clientUpdateTime.at(i);
 					double clientTimeDelta = (double)thisTimeSpec.tv_sec + (double)thisTimeSpec.tv_nsec / 1000000000.0 - ((double)clientPrevTime.tv_sec + (double)clientPrevTime.tv_nsec / 1000000000.0);
 					clientUpdateTime.at(i) = thisTimeSpec;
-					clientGflops.at(i) = processed / clientTimeDelta;
-					//clientGflops.at(i) = (double)((unsigned long long int)processed * OPS_PER_MUL) / clientTimeDelta / 1000.0 / 1000.0 / 1000.0;
+					//clientGflops.at(i) = processed / clientTimeDelta;
+					clientGflops.at(i) = (double)((unsigned long long int)processed * OPS_PER_MUL) / clientTimeDelta / 1000.0 / 1000.0 / 1000.0;
 					clientCalcs.at(i) += processed;
 				}
 
@@ -500,7 +500,6 @@ template<class T> void launch(int runLength, bool useDoubles) {
 	srand(100);
 	for (size_t i = 0; i < SIZE*SIZE; ++i) {
 		half tmp = approx_float_to_half((rand() % 100000)/10000.0);
-		
 		half tmp1 = approx_float_to_half((rand() % 100000)/10000.0);
 		A[i] = tmp;
 		B[i] = tmp1;
@@ -538,7 +537,7 @@ template<class T> void launch(int runLength, bool useDoubles) {
 			fprintf(stderr, "No CUDA devices\n");
 		} else {
 
-			for (int i = 1; i < 1; ++i) {
+			for (int i = 1; i < devCount; ++i) {
 				int slavePipe[2];
 				pipe(slavePipe);
 				clientPipes.push_back(slavePipe[0]);
@@ -573,20 +572,15 @@ template<class T> void launch(int runLength, bool useDoubles) {
 int main(int argc, char **argv) {
 	int runLength = 10;
 	bool useDoubles = false;
-	int thisParam = 0;
-	if (argc >= 2 && std::string(argv[1]) == "-d") {
-			useDoubles = true;
-			thisParam++;
-		}
-	if (argc-thisParam < 2)
-		printf("Run length not specified in the command line.  Burning for 10 secs\n");
-	else 
-		runLength = atoi(argv[1+thisParam]);
-
-	if (useDoubles)
-		launch<half>(runLength, useDoubles);
-	else
-		launch<half>(runLength, useDoubles);
-
+	// int thisParam = 0;
+	// if (argc >= 2 && std::string(argv[1]) == "-d") {
+	// 		useDoubles = true;
+	// 		thisParam++;
+	// 	}
+	// if (argc-thisParam < 2)
+	// 	printf("Run length not specified in the command line.  Burning for 10 secs\n");
+	// else 
+	runLength = atoi(argv[1]);
+	launch<half>(runLength, useDoubles);
 	return 0;
 }
